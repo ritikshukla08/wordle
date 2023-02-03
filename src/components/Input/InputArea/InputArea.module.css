@@ -1,0 +1,31 @@
+.box {
+  font-size: 35px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0 7px 7px 0;
+  color: #000;
+  border: 2px solid #d3d6da;
+}
+
+.yellow {
+  background: #b59f3b;
+  border: 2px solid #b59f3b;
+  color: #fff;
+}
+
+.grey {
+  background: #999999;
+  border: 2px solid #999999;
+  color: #fff;
+}
+
+.green {
+  background: #538d4e;
+  color: #fff;
+  border: 2px solid #538d4e;
+}

@@ -1,0 +1,51 @@
+.modal {
+  position: absolute;
+  background-color: #fff;
+  margin: auto;
+  padding: 67px 0px;
+  width: 70vh;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  top: 20vh;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+
+.modal h2 {
+  font-size: 35px;
+  color: #538d4e;
+  margin: 0;
+  margin-bottom: 70px;
+}
+
+.modal button {
+  padding: 15px 35px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 10px;
+  background: #b59f3b;
+  cursor: pointer;
+  border: 3px solid #b59f3b;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal button:hover {
+  color: #b59f3b;
+  background-color: transparent;
+}
+
+.insideModal {
+  position: relative;
+}
+
+.modal .insideModal span {
+  position: absolute;
+  cursor: pointer;
+  right: 15px;
+  top: -70px;
+  font-size: 33px;
+  font-weight: 700;
+  color: #3a3a3c;
+}

@@ -1,5 +1,17 @@
 .App {
   text-align: center;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.heading {
+  font-size: 40px;
+  color: #2c2c2c;
+  text-transform: uppercase;
+  margin: 0;
 }
 
 .App-logo {
@@ -35,4 +47,24 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.color {
+  color: #000;
+  background: #d3d6da;
+}
+
+.yellow {
+  background: #b59f3b;
+  color: #fff;
+}
+
+.grey {
+  background: #999999;
+  color: #fff;
+}
+
+.green {
+  background: #538d4e;
+  color: #fff;
 }
