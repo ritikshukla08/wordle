@@ -1,0 +1,113 @@
+.modal {
+  position: absolute;
+  background-color: #fff;
+  margin: auto;
+  padding: 40px 0px;
+  width: 70vh;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  top: 20vh;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+
+.modal h2 {
+  font-size: 35px;
+  color: #000;
+  margin: 0;
+  text-transform: uppercase;
+  margin-bottom: 70px;
+}
+
+/* .modal button {
+  padding: 15px 35px;
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 10px;
+  background: #b59f3b;
+  cursor: pointer;
+  border: 3px solid #b59f3b;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal button:hover {
+  color: #b59f3b;
+  background-color: transparent;
+} */
+
+.insideModal {
+  position: relative;
+  padding: 0 30px;
+}
+
+.modal .insideModal .close {
+  position: absolute;
+  cursor: pointer;
+  right: 15px;
+  top: -45px;
+  font-size: 33px;
+  font-weight: 700;
+  color: #3a3a3c;
+}
+
+.overlay {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5333333333);
+  height: 100vh;
+  width: 100vw;
+}
+
+.resetIcon {
+  background-color: #538d4e;
+  border: none;
+  border-radius: 5px;
+}
+
+.shareAndPlay {
+  display: flex;
+  justify-content: space-around;
+}
+
+.next span {
+  display: block;
+  font-size: 20px;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.share button {
+  margin-top: 30px;
+  font-size: 20px;
+  line-height: 50px;
+  padding: 0 45px;
+  text-transform: uppercase;
+  background: #538d4e;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.answer h3 {
+  font-size: 35px;
+  line-height: 35px;
+  margin: 0;
+  padding-top: 30px;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.answer h3 i {
+  font-size: 15px;
+  padding-left: 5px;
+  line-height: 20px;
+  font-weight: 500;
+}
+
+.answer p {
+  font-size: 20px;
+  text-align: left;
+  margin: 10px 0;
+}

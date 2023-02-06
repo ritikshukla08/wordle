@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Won.module.css";
+import classes from "./Stats.module.css";
 
 const WordNotExist = () => {
   return (

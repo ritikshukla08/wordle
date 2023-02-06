@@ -39,44 +39,31 @@ const KeyBoard = ({ letters, setLetters, colorMatrix, setColorMatrix }) => {
             if (answer[i] === letter.toLowerCase()) {
               color[curPosition.curRound][i] = "green";
               newObj[letter] = "green";
-              wrongWord[letter.toLowerCase()] = false;
+              wrongWord[letter.toLowerCase()] = "done";
             } else {
-              wrongWord[letter.toLowerCase()] = true;
+              newObj[letter] = "grey";
               color[curPosition.curRound][i] = "grey";
+              wrongWord[letter.toLowerCase()] = "wrong";
             }
           });
           letters[curPosition.curRound].forEach((letter, i) => {
-            if (wrongWord[letter.toLowerCase()]) {
-              if (
-                answer[i] !== letter.toLowerCase() &&
-                answer.includes(letter.toLowerCase())
-              ) {
-                console.log(newObj[letter]);
+            if (wrongWord[letter.toLowerCase()] === "wrong") {
+              if (answer.includes(letter.toLowerCase())) {
                 if (newObj[letter] === "green") {
                   color[curPosition.curRound][i] = "yellow";
+                  wrongWord[letter.toLowerCase()] = "done";
                 } else {
                   newObj[letter] = "yellow";
                   color[curPosition.curRound][i] = "yellow";
+                  wrongWord[letter.toLowerCase()] = "done";
                 }
-
-                wrongWord[letter.toLowerCase()] = false;
               } else {
-                console.log("hii");
                 newObj[letter] = "grey";
                 color[curPosition.curRound][i] = "grey";
-                wrongWord[letter.toLowerCase()] = false;
+                wrongWord[letter.toLowerCase()] = "done";
               }
             }
           });
-          // letters[curPosition.curRound].forEach((letter, i) => {
-          //   if (
-          //     answer[i] !== letter.toLowerCase &&
-          //     !answer.includes(letter.toLowerCase())
-          //   ) {
-          //     color[curPosition.curRound][i] = "grey";
-          //     newObj[letter] = "grey";
-          //   }
-          // });
         }
       }
 

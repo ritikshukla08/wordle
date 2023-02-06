@@ -69,6 +69,9 @@ const wordleSlice = createSlice({
     setColorObj(state, action) {
       state.colorObj = action.payload;
     },
+    stopTyping(state) {
+      state.stopTyping = true;
+    },
   },
 });
 
