@@ -1,0 +1,81 @@
+.signupForm {
+  text-align: start;
+}
+
+.formHead {
+  font-size: 35px;
+  text-transform: uppercase;
+}
+
+.insideForm {
+  margin-bottom: 25px;
+}
+
+.insideForm input {
+  width: 100%;
+  position: relative;
+  font-size: 30px;
+}
+
+.insideForm label {
+  font-size: 20px;
+  margin-bottom: 7px;
+  display: block;
+}
+
+.formBtn {
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 45px;
+  padding: 0 25px;
+  border: none;
+  color: #fff;
+  background-color: #538d4e;
+}
+
+.error label {
+  color: red;
+}
+
+.error input {
+  border: 1px solid red;
+}
+
+.error .err {
+  color: red;
+}
+
+.pswdField {
+  position: relative;
+}
+
+.showHide {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  text-transform: uppercase;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.error .showHide {
+  color: red;
+}
+
+.errMsg {
+  color: red;
+}
+
+.switch {
+  text-align: right;
+}
+
+.switch span {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.switch span:hover {
+  color: #538d4e;
+}

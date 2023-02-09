@@ -9,6 +9,8 @@ const wordleSlice = createSlice({
     colorObj: {},
     notAWord: false,
     winModal: false,
+    signup: true,
+    login: false,
     answer: "",
     reset: 0,
     status: "playing",
@@ -71,6 +73,14 @@ const wordleSlice = createSlice({
     },
     stopTyping(state) {
       state.stopTyping = true;
+    },
+    openSignup(state) {
+      state.signup = true;
+      state.login = false;
+    },
+    openlogin(state) {
+      state.signup = false;
+      state.login = true;
     },
   },
 });

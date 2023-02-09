@@ -4,7 +4,13 @@ import { wordleAction } from "../../store/wordle-slice";
 import Key from "./Key";
 import classes from "./KeyBoard.module.css";
 
-const KeyBoard = ({ letters, setLetters, colorMatrix, setColorMatrix }) => {
+const KeyBoard = ({
+  letters,
+  setLetters,
+  colorMatrix,
+  setColorMatrix,
+  signUp,
+}) => {
   const props = { letters, setLetters, colorMatrix, setColorMatrix };
   const dispatch = useDispatch();
 
@@ -112,12 +118,18 @@ const KeyBoard = ({ letters, setLetters, colorMatrix, setColorMatrix }) => {
   useEffect(() => {
     window.addEventListener("keydown", setValueHandler);
 
-    if (stopTyping) {
+    if (stopTyping || signUp) {
       window.removeEventListener("keydown", setValueHandler);
     }
 
     return () => window.removeEventListener("keydown", setValueHandler);
-  }, [stopTyping, curPosition.curBox, curPosition.curRound, setValueHandler]);
+  }, [
+    stopTyping,
+    signUp,
+    curPosition.curBox,
+    curPosition.curRound,
+    setValueHandler,
+  ]);
 
   return (
     <div className={classes.keyBoardSection}>
