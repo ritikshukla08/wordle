@@ -5,6 +5,7 @@ const wordleSlice = createSlice({
   initialState: {
     wordsArr: [],
     curPosition: { curRound: 0, curBox: 0 },
+    NUMBER_OF_ROWS: 5,
     stopTyping: false,
     colorObj: {},
     notAWord: false,
@@ -81,6 +82,9 @@ const wordleSlice = createSlice({
     openlogin(state) {
       state.signup = false;
       state.login = true;
+    },
+    changeMode(state, action) {
+      state.NUMBER_OF_ROWS = action.payload;
     },
   },
 });

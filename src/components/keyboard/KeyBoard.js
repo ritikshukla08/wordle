@@ -14,6 +14,7 @@ const KeyBoard = ({
   const props = { letters, setLetters, colorMatrix, setColorMatrix };
   const dispatch = useDispatch();
 
+  const NUMBER_OF_ROWS = useSelector((state) => state.wordle.NUMBER_OF_ROWS);
   const status = useSelector((state) => state.wordle.status);
   const curPosition = useSelector((state) => state.wordle.curPosition);
   const wordsArr = useSelector((state) => state.wordle.wordsArr);
@@ -31,46 +32,45 @@ const KeyBoard = ({
 
     if (key === "ENTER") {
       const arrInString = letters[curPosition.curRound].join("").toLowerCase();
-      if (curPosition.curBox !== 5) return;
+      if (curPosition.curBox !== NUMBER_OF_ROWS) return;
 
       let color = [...colorMatrix];
       let newObj = { ...colorObj };
-      for (let i = 0; i < 5; i++) {
-        const checkWord = letters[curPosition.curRound].join("").toLowerCase();
 
-        let wrongWord = {};
+      const checkWord = letters[curPosition.curRound].join("").toLowerCase();
 
-        if (wordsArr.includes(checkWord)) {
-          letters[curPosition.curRound].forEach((letter, i) => {
-            if (answer[i] === letter.toLowerCase()) {
-              color[curPosition.curRound][i] = "green";
-              newObj[letter] = "green";
-              wrongWord[letter.toLowerCase()] = "done";
+      let wrongWord = {};
+
+      if (wordsArr.includes(checkWord)) {
+        letters[curPosition.curRound].forEach((letter, i) => {
+          if (answer[i] === letter.toLowerCase()) {
+            color[curPosition.curRound][i] = "green";
+            newObj[letter] = "green";
+            wrongWord[letter.toLowerCase()] = "done";
+          } else {
+            newObj[letter] = "grey";
+            color[curPosition.curRound][i] = "grey";
+            wrongWord[letter.toLowerCase()] = "wrong";
+          }
+        });
+        letters[curPosition.curRound].forEach((letter, i) => {
+          if (wrongWord[letter.toLowerCase()] === "wrong") {
+            if (answer.includes(letter.toLowerCase())) {
+              if (newObj[letter] === "green") {
+                color[curPosition.curRound][i] = "yellow";
+                wrongWord[letter.toLowerCase()] = "done";
+              } else {
+                newObj[letter] = "yellow";
+                color[curPosition.curRound][i] = "yellow";
+                wrongWord[letter.toLowerCase()] = "done";
+              }
             } else {
               newObj[letter] = "grey";
               color[curPosition.curRound][i] = "grey";
-              wrongWord[letter.toLowerCase()] = "wrong";
+              wrongWord[letter.toLowerCase()] = "done";
             }
-          });
-          letters[curPosition.curRound].forEach((letter, i) => {
-            if (wrongWord[letter.toLowerCase()] === "wrong") {
-              if (answer.includes(letter.toLowerCase())) {
-                if (newObj[letter] === "green") {
-                  color[curPosition.curRound][i] = "yellow";
-                  wrongWord[letter.toLowerCase()] = "done";
-                } else {
-                  newObj[letter] = "yellow";
-                  color[curPosition.curRound][i] = "yellow";
-                  wrongWord[letter.toLowerCase()] = "done";
-                }
-              } else {
-                newObj[letter] = "grey";
-                color[curPosition.curRound][i] = "grey";
-                wrongWord[letter.toLowerCase()] = "done";
-              }
-            }
-          });
-        }
+          }
+        });
       }
 
       dispatch(wordleAction.setColorObj(newObj));
@@ -101,13 +101,14 @@ const KeyBoard = ({
       setLetters(newRound);
       dispatch(wordleAction.deleteClick());
     } else {
-      if (curPosition.curBox > 4) return;
+      if (curPosition.curBox > NUMBER_OF_ROWS - 1) return;
 
       if (
         (keyVal?.keyCode >= 65 && keyVal?.keyCode <= 90) ||
         typeof keyVal === "string"
       ) {
         const newRound = [...letters];
+
         newRound[curPosition.curRound][curPosition.curBox] = key;
         setLetters(newRound);
         dispatch(wordleAction.onLetterClick());

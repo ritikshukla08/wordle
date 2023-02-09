@@ -6,11 +6,12 @@ import KeyBoard from "./components/keyboard/KeyBoard";
 import ConfettiAnimation from "./components/Modals/ConfettiAnimation";
 import Stats from "./components/Modals/Stats";
 import WordNotExist from "./components/Modals/WordNotExist";
-import words from "./db/words.json";
+import dict_words from "./db/dict_words.json";
 import { wordleAction } from "./store/wordle-slice";
-import ResetIcon from "./Icons/ResetIcon";
 import LoginAndRegister from "./components/Modals/LoginAndRegister";
 import AuthContext from "./Auth/AuthContext";
+import Header from "./components/layouts/Header";
+import Modes from "./components/layouts/Modes";
 
 function App() {
   const data = useSelector((state) => state.wordle.answer);
@@ -18,42 +19,42 @@ function App() {
   const status = useSelector((state) => state.wordle.status);
   const winModal = useSelector((state) => state.wordle.winModal);
   const notAWord = useSelector((state) => state.wordle.notAWord);
+  const NUMBER_OF_ROWS = useSelector((state) => state.wordle.NUMBER_OF_ROWS);
   const dispatch = useDispatch();
 
   const authCtx = useContext(AuthContext);
 
   const [letters, setLetters] = useState([
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
   ]);
 
   const [colorMatrix, setColorMatrix] = useState([
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
+    new Array(NUMBER_OF_ROWS).fill(""),
   ]);
+
   const [giveUp, setGiveUp] = useState(null);
   const [signUp, setSignUp] = useState(null);
 
   useEffect(() => {
-    const randomNo = Math.floor(Math.random() * 5758);
+    const randomNo = Math.floor(
+      Math.random() * dict_words[NUMBER_OF_ROWS].length
+    );
 
-    const wordArr = [];
-
-    for (let value of Object.values(words)) {
-      wordArr.push(value);
-    }
+    const wordArr = dict_words[NUMBER_OF_ROWS].map((word) => word);
 
     dispatch(wordleAction.setWords(wordArr));
     dispatch(wordleAction.setAnswer(wordArr[randomNo]));
-  }, [dispatch, reset]);
+  }, [dispatch, reset, NUMBER_OF_ROWS]);
 
   console.log("answer is :-", data);
   const regenerate = () => {
@@ -63,20 +64,20 @@ function App() {
 
     dispatch(wordleAction.closeWinModal());
     setLetters([
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
     ]);
     setColorMatrix([
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
-      ["", "", "", "", ""],
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
+      new Array(NUMBER_OF_ROWS).fill(""),
     ]);
   };
 
@@ -116,26 +117,17 @@ function App() {
       {status === "lose" && <Stats regenerate={regenerate} />}
       {signUp && <LoginAndRegister close={closeSignup} />}
       <div className="App">
-        <div className="header">
-          <h1 className="heading">wordle</h1>
-          {!authCtx.isLoggedIn && <span onClick={openSignup}>sign up</span>}
-          {authCtx.isLoggedIn && <span onClick={logoutHandler}>log out</span>}
-        </div>
+        <Header
+          regenerate={regenerate}
+          status={status}
+          openStats={openStats}
+          openSignup={openSignup}
+          logoutHandler={logoutHandler}
+        />
+        <Modes regenerate={regenerate} />
         {notAWord && <WordNotExist />}
-        {authCtx.isLoggedIn && <h4>{authCtx.userName}</h4>}
+        {/* {authCtx.isLoggedIn && <h4>{authCtx.userName}</h4>} */}
         <Input {...props} />
-        <div>
-          <span className="appBtn reset" onClick={regenerate}>
-            <ResetIcon />
-          </span>
-          {status === "playing" && (
-            <span className="appBtn giveup" onClick={openStats}>
-              give
-              <br />
-              up
-            </span>
-          )}
-        </div>
         <KeyBoard {...props} />
       </div>
     </>

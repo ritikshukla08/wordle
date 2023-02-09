@@ -7,6 +7,7 @@ import ModalLayout from "../layouts/ModalLayout";
 const Stats = (props) => {
   const answer = useSelector((state) => state.wordle.answer);
   const [meaningObj, setMeaningObj] = useState(null);
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(null);
 
   useEffect(() => {
@@ -16,21 +17,25 @@ const Stats = (props) => {
         const response = await fetch(
           `https://api.dictionaryapi.dev/api/v2/entries/en/${answer}`
         );
-
         const data = await response.json();
 
+        if (!response.ok) {
+          throw new Error(data.message);
+        }
+
         setMeaningObj(data[0]?.meanings[0]);
-        console.log(data);
+
+        setError("");
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        setError(err.message);
+        setIsLoading(false);
       }
     };
 
     fetchMeaning();
   }, [answer]);
 
-  console.log(meaningObj);
   return (
     <>
       <ModalLayout close={props.close}>
@@ -51,7 +56,9 @@ const Stats = (props) => {
           {!isLoading && (
             <h3>
               {answer}
-              <i>{`(${meaningObj?.partOfSpeech})`}</i>
+              {meaningObj?.partOfSpeech && (
+                <i>{`(${meaningObj?.partOfSpeech})`}</i>
+              )}
             </h3>
           )}
           {meaningObj?.definitions.map((defi, i) => {
@@ -63,6 +70,7 @@ const Stats = (props) => {
               );
             }
           })}
+          {error && <p>{error}</p>}
         </div>
       </ModalLayout>
     </>
